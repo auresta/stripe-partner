@@ -29,7 +29,7 @@ There is no lint, test, or build command. Node 20+, ES modules (`"type": "module
 All four scripts share the same skeleton:
 
 1. Parse `process.argv[2]` as the env (`sandbox` | `live`), reject anything else.
-2. Read `PARTNER_TAG` and `STRIPE_KEY_SANDBOX`/`STRIPE_KEY_LIVE` from `.env` via `dotenv/config`. Restricted keys (`rk_sandbox_*` / `rk_live_*`), not full secret keys. Missing `PARTNER_TAG` is a hard error — it's the audit handle.
+2. Read `PARTNER_TAG` and `STRIPE_KEY_SANDBOX`/`STRIPE_KEY_LIVE` from `.env` via `dotenv/config`. Restricted keys (`rk_test_*` / `rk_live_*`), not full secret keys. Missing `PARTNER_TAG` is a hard error — it's the audit handle.
 3. For CSV-driven scripts: parse with `csv-parse/sync` (`columns: true, skip_empty_lines: true, trim: true`), then **validate the whole file first** (required columns, enums, duplicate keys within a batch). Only after validation passes do any API calls happen.
 4. If `live`, print a one-line summary of intended writes and sleep 5 seconds with an abort message — **do not remove this delay** (called out in README §7.2). This is the last-chance human checkout for irreversible operations.
 5. Construct the Stripe client with `{ apiVersion: '2024-06-20', maxNetworkRetries: 2 }`. The pinned `apiVersion` matters: leaving it implicit means the account's default API version applies, which can shift. `maxNetworkRetries: 2` enables the SDK's retry-with-same-idempotency-key behavior on network errors and `Stripe-Should-Retry` responses — that's why throttling and explicit 429 handling aren't needed in user code.
