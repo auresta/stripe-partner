@@ -3,6 +3,29 @@
 What to send the partner so they can load and fully test the catalogue in
 **Sandbox** (test mode). Nothing here touches Live.
 
+## What these tools do (plain English)
+
+"Catalogue" = the things in the Stripe account that define what you sell and the
+discounts on offer: **Products, Prices, Coupons, Promotion Codes**. These scripts
+create them in bulk from CSV files — this is exactly how you create products, set
+prices, and create coupons:
+
+| To… | Run | It creates |
+| --- | --- | --- |
+| **Create products & set prices** | `scripts/load-products.js` | Stripe **Products** + **Prices** (AUD, one-time or recurring, with GST/tax behavior) |
+| **Create coupons** (+ promo codes) | `scripts/load-coupons.js` | Stripe **Coupons** + **Promotion Codes** |
+| Check your key works | `scripts/verify.js` | read-only connectivity check |
+| See what's in the account | `scripts/read-summary.js` | read-only: product count + balances |
+
+**Workflow:** put your products/prices into a CSV (see `examples/products.csv`),
+run `load-products.js`, and the products + prices appear in Stripe. Same for
+coupons with `examples/coupons.csv`.
+
+**Stripe nuance — Prices are immutable.** You don't *edit* a Price once it's
+created; to change a price you create a new one and archive the old. So "set a
+price" means "create a price." Re-running the same CSV is safe — it's idempotent
+(`batch:sku` / `batch:name` keys), so no duplicates.
+
 ## 1. Send the partner
 
 - The **Sandbox restricted key** (`rk_test_…`) — share it **out-of-band** (a
