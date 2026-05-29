@@ -1,0 +1,8 @@
+sku,name,description,price_aud,type,interval,tax_behavior,tax_code,lookup_key,batch
+WF-CER-60,Premium Ceramic Window Film 60%,Heat-rejecting ceramic film,89.00,one_time,,inclusive,,wf-cer-60-aud,2026-05-batch1
+WF-CER-35,Premium Ceramic Window Film 35%,Mid-tier ceramic film,69.00,one_time,,inclusive,,wf-cer-35-aud,2026-05-batch1
+WF-MAINT-MONTHLY,Monthly Maintenance Plan,Quarterly inspection and re-seal,29.00,recurring,month,inclusive,,wf-maint-monthly-aud,2026-05-batch1
+WF-MAINT-ANNUAL,Annual Maintenance Plan,Quarterly inspection and re-seal (billed yearly),299.00,recurring,year,inclusive,,wf-maint-annual-aud,2026-05-batch1
+WF-VOUCHER-30,$30 Account Credit,Top-up voucher worth $30,30.00,one_time,,exclusive,,wf-voucher-30-aud,2026-05-batch1
+WF-VOUCHER-50,$50 Account Credit,Top-up voucher worth $50,50.00,one_time,,exclusive,,wf-voucher-50-aud,2026-05-batch1
+WF-VOUCHER-100,$100 Account Credit,Top-up voucher worth $100,100.00,one_time,,exclusive,,wf-voucher-100-aud,2026-05-batch1

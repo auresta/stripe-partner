@@ -1,0 +1,23 @@
+{
+  "name": "stripe-partner-onboarding",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Catalogue management scripts for the Stripe partner engagement.",
+  "scripts": {
+    "verify:sandbox": "node scripts/verify.js sandbox",
+    "verify:live": "node scripts/verify.js live",
+    "load:products:sandbox": "node scripts/load-products.js sandbox examples/products.csv",
+    "load:coupons:sandbox": "node scripts/load-coupons.js sandbox examples/coupons.csv",
+    "summary:sandbox": "node scripts/read-summary.js sandbox",
+    "summary:live": "node scripts/read-summary.js live"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.6",
+    "dotenv": "^16.4.5",
+    "stripe": "^16.0.0"
+  }
+}

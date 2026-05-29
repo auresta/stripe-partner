@@ -1,0 +1,4 @@
+name,amount_off_aud,percent_off,duration,duration_in_months,promo_code,batch
+$10 Off First Order,10.00,,once,,WELCOME10,2026-05-batch1
+20% Off Annual Plan,,20,repeating,12,LOYAL20,2026-05-batch1
+$5 Off Any Voucher,5.00,,once,,VOUCHER5,2026-05-batch1
