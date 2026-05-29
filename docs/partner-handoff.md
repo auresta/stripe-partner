@@ -41,7 +41,7 @@ cp .env.example .env
 
 Then edit `.env`:
 
-```
+```bash
 STRIPE_KEY_SANDBOX=rk_test_…     # the key you were sent
 PARTNER_TAG=partner-xx           # your own short tag, stamped on every object
 ```
