@@ -1,0 +1,4 @@
+# Files kept in the repo but excluded from the contractor handoff zip
+# (git archive honors export-ignore). CLAUDE.md is Owner tooling guidance.
+CLAUDE.md export-ignore
+.gitattributes export-ignore
