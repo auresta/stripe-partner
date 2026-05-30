@@ -61,16 +61,17 @@ no real money or real customers. The governing principle:
 
 ### Beyond Stripe
 
-Apply least privilege to the other systems the contractor touches: Netlify
-(scoped deploy, not account owner), Infisical (scoped, ideally test values only),
-repos (collaborator, not org admin).
+The contractor needs only **repo access + a test Stripe key** — nothing else.
+They develop locally and exercise webhooks with the Stripe CLI (`stripe listen`).
+The Owner alone owns hosting and all secrets and performs deployments; do not
+grant the contractor access to either.
 
 ## Steps
 
 1. **Sandbox:** in the **test-mode** Dashboard, Create restricted key named
    e.g. `partner-catalogue-sandbox`, set the permissions in the Sandbox column,
    create, and copy the `rk_test_…` value.
-2. **Store it** in Infisical (or `.env.local`) — see naming below.
+2. **Store it** in your secret store (or `.env.local`) — see naming below.
 3. **Wire `.env`:** the scripts read `STRIPE_KEY_SANDBOX` / `STRIPE_KEY_LIVE`
    via `dotenv/config`. Set:
    ```bash
@@ -100,4 +101,4 @@ repos (collaborator, not org admin).
 
 Restricted keys can't be rolled via API. In the Dashboard → API keys → the key →
 **Roll** (or delete + recreate), then update the stored value everywhere it lives
-(Infisical, `.env`). Test-mode exposure is low impact but still warrants a roll.
+(your secret store, `.env`). Test-mode exposure is low impact but still warrants a roll.
