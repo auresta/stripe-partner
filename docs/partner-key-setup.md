@@ -29,6 +29,42 @@ The loaders strictly require only Products, Prices, Coupons, Promotion codes
 (Write) + Balance (Read). The remaining permissions match the broader §2 partner
 agreement — grant the full set so the key reflects the documented access.
 
+## Contractor build key (full payment solution — test mode)
+
+The catalogue key above is scoped for loading products/prices/coupons. A
+**contractor building the full payment solution** (Stripe Checkout, subscriptions,
+credit-wallet fulfilment) needs more — but only in **test mode**, where there is
+no real money or real customers. The governing principle:
+
+> **Test mode: generous. Live mode: locked.** Give the contractor a broad *test*
+> key so they can build and iterate freely; the Owner alone holds live access and
+> performs the live cutover (live key, live webhook registration, live env).
+
+### Contractor test key scope (`rk_test_…`)
+
+| Stripe resource | Setting |
+| --- | --- |
+| Products, Prices, Coupons, Promotion codes, Tax rates, Files | **Write** |
+| Checkout Sessions, Payment Links | **Write** (build checkout) |
+| PaymentIntents, Customers, Subscriptions, Invoices | **Write** (test flows) |
+| Events | **Read** (debug webhooks) |
+| Balance, Payouts | **Read** |
+| Refunds | **Write** *in test only*, if testing refund flows |
+| Webhook endpoints | **None** — Owner registers endpoints; contractor uses `stripe listen` for local testing |
+| Account, Team, API keys, everything else | **None** |
+
+### What stays with the Owner (never the contractor)
+
+- The standard secret key (`sk_…`), in any mode.
+- **All live access** — live keys, live webhook registration, live env vars.
+- Account/bank settings, team, and API-key management.
+
+### Beyond Stripe
+
+Apply least privilege to the other systems the contractor touches: Netlify
+(scoped deploy, not account owner), Infisical (scoped, ideally test values only),
+repos (collaborator, not org admin).
+
 ## Steps
 
 1. **Sandbox:** in the **test-mode** Dashboard, Create restricted key named
@@ -37,7 +73,7 @@ agreement — grant the full set so the key reflects the documented access.
 2. **Store it** in Infisical (or `.env.local`) — see naming below.
 3. **Wire `.env`:** the scripts read `STRIPE_KEY_SANDBOX` / `STRIPE_KEY_LIVE`
    via `dotenv/config`. Set:
-   ```
+   ```bash
    STRIPE_KEY_SANDBOX=rk_test_xxxxxxxxxxxx
    PARTNER_TAG=partner-xx
    ```
